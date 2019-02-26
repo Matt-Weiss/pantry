@@ -24,4 +24,20 @@ class Recipe
     end
   end
 
+  def sort_by_calories
+    sorted_ingredients = @ingredients_required.sort_by do |ingredient|
+      ingredient[0].calories * ingredient[1]
+    end.reverse
+  end
+
+  def ingredient_breakdown
+    ingredient_list = []
+    sort_by_calories.each do |ingredient|
+      ingredient_hash = {}
+      ingredient_hash[:ingredient] = ingredient[0].name
+      ingredient_hash[:amount] = "#{ingredient[1]} #{ingredient[0].unit}"
+      ingredient_list << ingredient_hash
+    end
+    ingredient_list
+  end
 end
